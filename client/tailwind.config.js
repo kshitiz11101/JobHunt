@@ -6,6 +6,17 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        marquee: 'marquee 20s linear infinite',
+       
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        
+      },
       colors:{
         'mine-shaft': {
         '50': '#f6f6f6',
