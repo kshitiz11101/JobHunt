@@ -11,7 +11,7 @@ const DreamJob = () => {
 
   return (
     <div className="bg-mine-shaft-950 min-h-screen flex flex-col lg:flex-row items-center justify-center p-6 ">
-      {/* Left Section with Text and Input Fields */}
+     
       <div className="flex flex-col w-full lg:w-[50%] gap-2 lg:mb-0">
         <div className="text-4xl md:text-4xl lg:text-6xl font-bold text-white leading-tight">
           Find your <span className="text-cyan-500">dream job</span> with us
@@ -20,7 +20,7 @@ const DreamJob = () => {
           Good Life begins with a good company. Start explore thousands of jobs at one place.
         </div>
 
-        {/* Input Fields */}
+        
         <div className="flex flex-col md:flex-row gap-4 mt-4">
           <div className="flex flex-col w-full md:w-auto">
             <label className="text-white font-medium mb-2" htmlFor="jobTitle">Job Title</label>
@@ -45,7 +45,7 @@ const DreamJob = () => {
             />
           </div>
 
-          {/* Search Button */}
+         
           <button
             onClick={handleSearch}
             className="bg-cyan-500 p-4 flex items-center justify-center rounded-md hover:bg-cyan-/-aqua-600 w-1/5 h-16 m-4"
@@ -55,7 +55,7 @@ const DreamJob = () => {
         </div>
       </div>
 
-      {/* Right Section with Image */}
+     
       <div className="w-full lg:w-[50%] flex items-center justify-center">
         <div className="w-[20rem] md:w-[25rem] lg:w-[30rem]">
           <img src="/dreamjob.png" alt="Dream Job" className="rounded-md" />
