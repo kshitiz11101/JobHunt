@@ -1,4 +1,4 @@
-package com.example.kshitiz.server.exceptions;
+package com.example.kshitiz.server.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

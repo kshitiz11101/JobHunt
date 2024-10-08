@@ -1,4 +1,4 @@
-package com.example.kshitiz.server.exceptions;
+package com.example.kshitiz.server.utils;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -32,5 +32,16 @@ public class ExceptionControllerAdvice {
     }
         ErrorInfo errorInfo = new ErrorInfo(msg, HttpStatus.BAD_REQUEST.value(),LocalDateTime.now());
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(GeneralExceptions.UserNotFoundException.class)
+    public ResponseEntity<ErrorInfo> handleUserNotFound(GeneralExceptions.UserNotFoundException exception) {
+        ErrorInfo errorInfo = new ErrorInfo(exception.getMessage(), HttpStatus.NOT_FOUND.value(), LocalDateTime.now());
+        return new ResponseEntity<>(errorInfo, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(GeneralExceptions.InvalidCredentialsException.class)
+    public ResponseEntity<ErrorInfo> handleInvalidCredentials(GeneralExceptions.InvalidCredentialsException exception) {
+        ErrorInfo errorInfo = new ErrorInfo(exception.getMessage(), HttpStatus.UNAUTHORIZED.value(), LocalDateTime.now());
+        return new ResponseEntity<>(errorInfo, HttpStatus.UNAUTHORIZED);
     }
 }
