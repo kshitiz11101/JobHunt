@@ -55,4 +55,5 @@ const footerLinks=[
     {title:"Company", link:["About us","Contact us","Privacy Policy","Terms and Conditions"]},
     {title:"Support", link:["Help & Support","Feedback","FAQs"]}
 ]
+
 export {companies,work,testimonials,jobCategory,footerLinks};
