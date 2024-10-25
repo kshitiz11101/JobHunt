@@ -1,12 +1,12 @@
 package com.example.kshitiz.server.dto;
 
 import com.example.kshitiz.server.entity.Job;
-import jakarta.persistence.ElementCollection;
+import com.example.kshitiz.server.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -21,8 +21,15 @@ public class JobDTO {
     private List<String> skillsRequired;
     private String salary;
     private String location;
+    private Long applicants;
+    private String description;
+    private String responsibilities;
+    private LocalDate postedOn;
 
-    public Job toEntity() {
+    private  Long userId;
+
+
+    public Job toEntity(User user) {
         Job job = new Job();
         job.setId(this.id);
         job.setJobTitle(this.jobTitle);
@@ -32,6 +39,11 @@ public class JobDTO {
         job.setSkillsRequired(this.skillsRequired);
         job.setSalary(this.salary);
         job.setLocation(this.location);
+        job.setApplicants(this.applicants);
+        job.setDescription(this.description);
+        job.setPostedOn(this.postedOn);
+        job.setResponsibilities(this.responsibilities);
+        job.setPostedBy(user);
         return job;
     }
 }

@@ -2,13 +2,13 @@ package com.example.kshitiz.server.entity;
 
 import com.example.kshitiz.server.dto.JobDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +38,17 @@ public class Job {
     private String salary;
     @NotNull(message = "Location cannot be null or empty")
     private String location;
+    @NotNull(message = "No. of applicants can't be null or empty")
+    private Long applicants;
+    @NotNull(message = "Description can't be null or empty")
+    private String description;
+    @NotNull(message = "No. of days posted ago can't be null or empty")
+    private LocalDate postedOn;
+    private String responsibilities;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User postedBy;
 
 
     public JobDTO toDTO() {
@@ -50,6 +61,11 @@ public class Job {
         jobDTO.setSkillsRequired(this.skillsRequired);
         jobDTO.setSalary(this.salary);
         jobDTO.setLocation(this.location);
+        jobDTO.setApplicants(this.applicants);
+        jobDTO.setDescription(this.description);
+        jobDTO.setPostedOn(this.postedOn);
+        jobDTO.setResponsibilities(this.responsibilities);
+        jobDTO.setUserId(this.postedBy.getId());
         return jobDTO;
     }
 }

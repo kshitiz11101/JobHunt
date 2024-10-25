@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class JobServiceImpl implements JobService {
 
@@ -52,5 +54,21 @@ public class JobServiceImpl implements JobService {
     @Override
     public List<Job> getAllJobs() {
         return jobRepository.findAll();
+    }
+
+    @Override
+    public List<Job> searchJobs(String title, String location, String experience, String jobType) {
+        List<Job> jobs=jobRepository.findAll();
+        return jobs.stream()
+                .filter(job->(title==null || job.getJobTitle().toLowerCase().contains(title.toLowerCase())))
+                .filter(job -> (location == null || job.getLocation().toLowerCase().contains(location.toLowerCase())))
+                .filter(job -> (experience == null || job.getExperience().equalsIgnoreCase(experience)))
+                .filter(job -> (jobType == null || job.getJobType().equalsIgnoreCase(jobType)))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Job> getJobsByUser(Long userId) {
+        return jobRepository.findByPostedById(userId);
     }
 }
