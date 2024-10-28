@@ -5,7 +5,12 @@ import com.example.kshitiz.server.dto.UserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+
+
+import java.util.Collection;
+import java.util.Collections;
 
 
 @Entity
@@ -25,14 +30,13 @@ public class User {
     @Email(message = "Email is invalid")
     private String email;
     @NotBlank(message = "Password is blank or null")
+    @Size(min = 6)
     private String password;
     @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Account Type cannot be null or empty")
     private AccountType accountType;
-
+//
     public UserDTO toDTO(){
         return new UserDTO(this.id,this.name,this.email,this.password,this.accountType);
     }
-
-
-
 }

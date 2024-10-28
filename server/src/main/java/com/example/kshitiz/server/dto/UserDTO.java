@@ -1,9 +1,6 @@
 package com.example.kshitiz.server.dto;
 
 import com.example.kshitiz.server.entity.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,7 @@ public class UserDTO {
     private String email;
     private String password;
     private AccountType accountType;
+
 
     public User toEntity() {
         return new User(this.id, this.name, this.email, this.password, this.accountType);
