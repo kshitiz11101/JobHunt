@@ -13,9 +13,12 @@ export const apiRequest=async({url,data,method,params})=>{
         })
         return res.data;
     } catch (error) {
-        const err=error.res;
+        const err=error.response;
         console.log(err);
-        return{ status:err,message:err.message};
+        return{ 
+            status:err?.status || 500,
+            message:err?.data?.message || "An Error Occured"
+        };
         
     }
 }
