@@ -52,10 +52,10 @@ const JobCategory = () => {
         {jobCategory.map((category, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-[300px] snap-center bg-mine-shaft-900 rounded-lg p-6 text-white border border-cyan-/-aqua-400 
-            hover:cursor-pointer "
+            className="flex-shrink-0 w-[300px] snap-center bg-mine-shaft-900 rounded-lg p-6 text-white border border-cyan-/-aqua-300 
+            hover:cursor-pointer hover:shadow-[0_0_5px_1px_cyan] shadow-cyan-600"
           >
-            <div className="w-12 h-12 bg-cyan-/-aqua-500 rounded-full flex items-center justify-center mb-4 ">
+            <div className="w-12 h-12 bg-cyan-/-aqua-500 rounded-full flex items-center justify-center mb-4  ">
               <category.icon className="w-6 h-6 text-mine-shaft-900" />
             </div>
             <h2 className="text-xl font-semibold mb-2">{category.title}</h2>
