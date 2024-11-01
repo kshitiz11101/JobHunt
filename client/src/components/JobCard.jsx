@@ -9,10 +9,11 @@ import { removeSavedJobs, saveJob, setJobs, setJobDetails } from "../redux/jobSl
 
 const JobCard = () => {
   const [Alljobs, setAllJobs] = useState([]);
+  
   const [selectedJobId, setSelectedJobId] = useState(null);
   const dispatch = useDispatch();
   const savedJobs = useSelector((state) => state.jobs.savedJobs);
-
+  
   const fetchJobs = async (filters = {}) => {
     try {
       const filteredQuery = Object.fromEntries(Object.entries(filters).filter(([_, value]) => value));

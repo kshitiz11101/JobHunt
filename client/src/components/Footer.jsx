@@ -5,7 +5,7 @@ import {FaXTwitter} from 'react-icons/fa6';
 import { footerLinks } from '../utils/data';
 const Footer = () => {
   return (
-    <div className='mt-10 pb-5 flex gap-5 justify-around bg-mine-shaft-900 p-2'>
+    <div className='mt-10 pb-5 flex gap-5 justify-around bg-mine-shaft-900 p-2 '>
         <div className='w-1/4 flex flex-col gap-4 px-2 '>
             <div className='flex gap-1 items-center text-cyan-/-aqua-400'>
             <TbAsset className="h-8 w-auto text-cyan-/-aqua-500 " />
@@ -24,8 +24,8 @@ const Footer = () => {
             footerLinks.map((foot,index)=><div>
             <div key={index} className='text-lg font-semibold text-cyan-/-aqua-500'>{foot.title}</div>
             {
-                foot.link.map((item,index)=>
-                <div key={index} className='text-mine-shaft-300 cursor-pointer hover:text-cyan-/-aqua-500 hover:translate-x-1 transition duration-300 ease-in-out'>{item}</div>
+                foot.link.map((item,ind)=>
+                <div key={ind} className='text-mine-shaft-300 cursor-pointer hover:text-cyan-/-aqua-500 hover:translate-x-1 transition duration-300 ease-in-out'>{item}</div>
                 )
             }
             </div>
