@@ -1,17 +1,14 @@
 package com.example.kshitiz.server.controllers;
 
 import com.example.kshitiz.server.dto.LoginDTO;
-import com.example.kshitiz.server.dto.ResponseDTO;
 import com.example.kshitiz.server.dto.UserDTO;
 import com.example.kshitiz.server.services.UserService;
-//import com.example.kshitiz.server.utils.JwtUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @CrossOrigin()
@@ -20,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
-
-
     @PostMapping("/register")
     public ResponseEntity<UserDTO>registerUser(@RequestBody @Valid UserDTO userDTO) {
     userDTO=userService.registerUser(userDTO);
