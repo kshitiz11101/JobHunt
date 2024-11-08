@@ -30,6 +30,19 @@ const ApplicationForm = () => {
     
     const handleSubmitApplication = async(e) => {
         e.preventDefault();
+        if(applicantDetails.phone.length<10){
+            toast.error('Phone number should be 10 digits long');
+        }
+        if(!applicantDetails.portfolio){
+            toast.error('Portfolio link is required');
+        }
+        if(!applicantDetails.resume){
+            toast.error("Resume Link is required");
+        }
+        if(!applicantDetails.linkedIn){
+            toast.error("LinkedIn Profile is required");
+        }
+
       console.log("Sending Application",applicantDetails);
         try {
         const res=await apiRequest({
@@ -113,7 +126,7 @@ const ApplicationForm = () => {
                             onChange={handleChange}
                             placeholder="Enter Phone Number"
                             className="w-full bg-mine-shaft-800 text-white p-3 focus:outline-none rounded-r-md"
-                            required
+                            
                         />
                     </div>
                 </div>
@@ -130,7 +143,7 @@ const ApplicationForm = () => {
                             onChange={handleChange}
                             placeholder="Portfolio or Personal Website"
                             className="w-full bg-mine-shaft-800 text-white p-3 focus:outline-none rounded-r-md"
-                            required
+                            
                         />
                     </div>
                 </div>
@@ -162,7 +175,7 @@ const ApplicationForm = () => {
                             onChange={handleChange}
                             placeholder="Link to Resume"
                             className="w-full bg-mine-shaft-800 text-white p-3 focus:outline-none rounded-r-md"
-                            required
+                           
                         />
                     </div>
                 </div>

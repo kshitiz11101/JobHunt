@@ -7,6 +7,7 @@ import { GiSkills } from "react-icons/gi";
 import { toast, ToastContainer } from "react-toast";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 const PostJob = ({job}) => {
     const [jobDetails, setJobDetails] = useState({
         company: "",
@@ -29,6 +30,7 @@ const PostJob = ({job}) => {
       const [isOtherSelected, setIsOtherSelected] = useState(false); // To track if "Other" option is selected
       const [isOtherSkillSelected, setIsOtherSkillSelected] = useState(false); // For tracking skill selection
       const [customSkill, setCustomSkill] = useState(''); // For manual skill input
+      const [isBoxOpen, setIsBoxOpen]=useState(false);
       const navigate=useNavigate();
       
       const handleChange = (e) => {
@@ -125,10 +127,6 @@ const PostJob = ({job}) => {
       const handleBackClick=()=>{
         navigate("/");
       }
-
-      const handleUpdateJob=async()=>{
-        
-      }
       useEffect(() => {
         if (job) {
           setJobDetails({
@@ -137,6 +135,12 @@ const PostJob = ({job}) => {
           });
         }
       }, [job]);
+      const openPostBox=()=>{
+        setIsBoxOpen(true);
+      }
+      const closePostBox=()=>{
+        setIsBoxOpen(false);
+      }
   return (
    <>
    <ToastContainer
@@ -372,6 +376,7 @@ const PostJob = ({job}) => {
           <div className="md:col-span-2 flex justify-end">
             <button
               type="submit"
+              onClick={()=>handlePostJob}
               className="bg-cyan-/-aqua-500 text-gray-800 p-3 rounded-md font-semibold hover:bg-cyan-/-aqua-600"
             >
              {job?"Update Job":"Post Job"}
@@ -379,6 +384,7 @@ const PostJob = ({job}) => {
           </div>
         </form>
       </div>
+      
    </>
   )
 }

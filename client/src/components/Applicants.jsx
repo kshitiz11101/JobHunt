@@ -73,9 +73,9 @@ const Applicants = () => {
                                 </a>
                                 </div>
                                
-                                <p className="text-mine-shaft-300 mt-2 text-justify">
+                                {/* <p className="text-mine-shaft-300 mt-2 text-justify">
                                     Cover Letter: {applicant.coverLetter}
-                                </p>
+                                </p> */}
 
                 </div>
                ))     
