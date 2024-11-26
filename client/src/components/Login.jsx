@@ -9,9 +9,7 @@ const Login = () => {
     email: '',
     password: '',
     accountType: ''
-  });
-  
- 
+  }); 
   const dispatch=useDispatch();
   const navigate=useNavigate();
   const handleChange = (e) => {
@@ -43,15 +41,18 @@ const Login = () => {
         method:"POST",
         data:formData,
       })
-      if(res && res.id){
-        toast.success("You have logged in successfully!")
-  
+      if(res && res.jwtToken){
+        localStorage.setItem("jwtToken",res.jwtToken);
+        
         dispatch(login({
           id: res.id,
           accountType: res.accountType,
           email: res.email,
           name: res.name,
+          jwtToken:res.jwtToken
+          
         }));
+        toast.success("You have logged in successfully!")
         navigate('/user-profile');
       }
       else{

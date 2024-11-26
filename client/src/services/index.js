@@ -4,11 +4,16 @@ export const API=axios.create({
     baseURL:API_URL,
     responseType:"json"
 })
-export const apiRequest=async({url,data,method,params})=>{
+export const apiRequest=async({url,data,method,jwtToken,params})=>{
     try {
+        const token=jwtToken || localStorage.getItem("jwtToken");
         const res=await API(url,{
             method:method|| "GET",
             data:data,
+            headers:{
+                "Content-type":"application/json",
+                Authorization:token?`Bearer ${jwtToken}`:"",
+            },
             params:params || null
         })
         return res.data;
