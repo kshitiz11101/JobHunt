@@ -6,6 +6,7 @@ import com.example.kshitiz.server.entity.User;
 
 import com.example.kshitiz.server.utils.GeneralExceptions;
 import com.example.kshitiz.server.repositories.UserRepository;
+import com.example.kshitiz.server.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,8 @@ class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-
-
-
+    @Autowired
+    private JwtUtil jwtUtil;
     private final BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
@@ -34,19 +34,18 @@ class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO loginUser(LoginDTO loginDTO) {
-        System.out.println("Attempting to login user: " + loginDTO.getEmail());
-        User user=userRepository.findByEmail(loginDTO.getEmail());
-        if(user==null){
-            throw new GeneralExceptions.UserNotFoundException("User with email "+ loginDTO.getEmail()+ " not found");
+      User user=userRepository.findByEmail(loginDTO.getEmail());
+        if (user!=null) {
+            // Convert user entity to DTO
+            UserDTO userDTO = user.toDTO();
+            // Generate JWT token
+            String token = jwtUtil.generateToken(user.getEmail());
+            userDTO.setJwtToken(token);
+
+            return userDTO;
         }
 
-        if (!bcryptPasswordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
-            throw new GeneralExceptions.InvalidCredentialsException("Invalid Credentials");
-        }
-//        String jwtToken=jwtService.generateToken(user.getEmail());
-        UserDTO userDTO=user.toDTO();
-//        userDTO.setToken(jwtToken);
-        return userDTO;
+        return null;
     }
 
     @Override

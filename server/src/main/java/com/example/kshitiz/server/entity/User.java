@@ -37,6 +37,6 @@ public class User {
     private AccountType accountType;
 //
     public UserDTO toDTO(){
-        return new UserDTO(this.id,this.name,this.email,this.password,this.accountType);
+        return new UserDTO(this.id,this.name,this.email,this.password,this.accountType,null);
     }
 }
