@@ -46,9 +46,7 @@ public class Job {
     private LocalDate postedOn;
     private String responsibilities;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User postedBy;
+
 
 
     public JobDTO toDTO() {
@@ -65,7 +63,6 @@ public class Job {
         jobDTO.setDescription(this.description);
         jobDTO.setPostedOn(this.postedOn);
         jobDTO.setResponsibilities(this.responsibilities);
-        jobDTO.setUserId(this.postedBy.getId());
         return jobDTO;
     }
 }

@@ -26,10 +26,10 @@ public class JobDTO {
     private String responsibilities;
     private LocalDate postedOn;
 
-    private  Long userId;
 
 
-    public Job toEntity(User user) {
+
+    public Job toEntity() {
         Job job = new Job();
         job.setId(this.id);
         job.setJobTitle(this.jobTitle);
@@ -43,7 +43,7 @@ public class JobDTO {
         job.setDescription(this.description);
         job.setPostedOn(this.postedOn);
         job.setResponsibilities(this.responsibilities);
-        job.setPostedBy(user);
+
         return job;
     }
 }

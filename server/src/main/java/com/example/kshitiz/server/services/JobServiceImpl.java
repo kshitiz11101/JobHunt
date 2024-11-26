@@ -67,8 +67,5 @@ public class JobServiceImpl implements JobService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Job> getJobsByUser(Long userId) {
-        return jobRepository.findByPostedById(userId);
-    }
+
 }

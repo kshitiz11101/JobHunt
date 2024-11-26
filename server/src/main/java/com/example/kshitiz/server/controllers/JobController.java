@@ -7,6 +7,7 @@ import com.example.kshitiz.server.entity.Job;
 import com.example.kshitiz.server.entity.User;
 import com.example.kshitiz.server.services.JobService;
 import com.example.kshitiz.server.services.UserService;
+import com.example.kshitiz.server.utils.JwtUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,36 +24,41 @@ public class JobController {
     private JobService jobService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    @PostMapping("/addJob/{userId}")
-    public ResponseEntity<JobDTO> addJob(@PathVariable Long userId,   @Valid @RequestBody JobDTO jobDTO) {
-        User user= userService.getUserById(userId).toEntity();
+    @PostMapping("/addJob")
+    public ResponseEntity<JobDTO> addJob(@RequestHeader("Authorization") String token,   @Valid @RequestBody JobDTO jobDTO) {
+        String email=jwtUtil.extractEmail(token.replace("Bearer ",""));
+
+        User user= userService.getUserByEmail(email).toEntity();
         if(user.getAccountType()!= AccountType.EMPLOYER){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            throw new RuntimeException("Invalid token");
         }
-        Job job=jobDTO.toEntity(user);
-        job.setPostedBy(user);
+        Job job=jobDTO.toEntity();
+
         Job createdJob=jobService.createJob(job);
 
         JobDTO createdJobDTO=createdJob.toDTO();
         return new ResponseEntity<>(createdJobDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/updateJob/{id}/{userId}")
-    public ResponseEntity<JobDTO> updateJob(@PathVariable Long userId,  @PathVariable Long id, @RequestBody JobDTO jobDTO) {
-        User user= userService.getUserById(userId).toEntity();
+    @PutMapping("/updateJob/{id}")
+    public ResponseEntity<JobDTO> updateJob(@RequestHeader("Authorization") String token,  @PathVariable Long id, @RequestBody JobDTO jobDTO) {
+        String email=jwtUtil.extractEmail(token.replace("Bearer ",""));
+        User user= userService.getUserByEmail(email).toEntity();
+
+        if(user.getAccountType()!= AccountType.EMPLOYER){
+           throw new RuntimeException("Invalid token");
+
+        }
         Job job=jobService.getJob(id);
         System.out.println(job);
         if (job == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (job.getPostedBy()==null || job.getPostedBy().getId()!=user.getId()) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-
         jobDTO.setId(id);
-
-        Job updatedJob=jobService.updateJob(jobDTO.toEntity(user));
+        Job updatedJob=jobService.updateJob(jobDTO.toEntity());
         JobDTO createdJobDTO=updatedJob.toDTO();
         return new ResponseEntity<>(createdJobDTO, HttpStatus.OK);
     }
@@ -74,25 +80,19 @@ public class JobController {
 
         return new ResponseEntity<>(jobDTOs, HttpStatus.OK);
     }
-    @DeleteMapping("/deleteJob/{id}/{userId}")
-    public ResponseEntity<Void> deleteJob(@PathVariable Long userId,  @PathVariable Long id) {
-        User user= userService.getUserById(userId).toEntity();
+    @DeleteMapping("/deleteJob/{id}")
+    public ResponseEntity<Void> deleteJob(@RequestHeader("Authorization") String token,  @PathVariable Long id) {
+        String email=jwtUtil.extractEmail(token.replace("Bearer ",""));
+        User user= userService.getUserByEmail(email).toEntity();
+        if(user.getAccountType()!= AccountType.EMPLOYER){
+            throw new RuntimeException("Invalid token");
+        }
         Job job=jobService.getJob(id);
        if(job==null){
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }
-       if(job.getPostedBy()==null || job.getPostedBy().getId()!=user.getId()) {
-           return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-       }
             jobService.deleteJob(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-    @GetMapping("/getJobsByUser/{userId}")
-    public ResponseEntity<List<JobDTO>> getJobsByUser(@PathVariable Long userId) {
-        User user=userService.getUserById(userId).toEntity();
-        List<Job> jobs = jobService.getJobsByUser(userId);
-        List<JobDTO> jobDTOS=jobs.stream().map(Job::toDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(jobDTOS, HttpStatus.OK);
     }
     @GetMapping("/searchJobs")
     public ResponseEntity<List<JobDTO>> searchJobs(  @RequestParam(required = false) String title,

@@ -6,9 +6,10 @@ import com.example.kshitiz.server.entity.Profile;
 import com.example.kshitiz.server.entity.User;
 import com.example.kshitiz.server.repositories.UserRepository;
 
-//import com.example.kshitiz.server.services.CloudinaryService;
+
 import com.example.kshitiz.server.services.ProfileService;
 import com.example.kshitiz.server.utils.GeneralExceptions;
+import com.example.kshitiz.server.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,22 +29,28 @@ public class ProfileController {
     private ProfileService profileService;
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private CloudinaryService cloudinaryService;
+    @Autowired
+    private JwtUtil jwtUtil;
+
 
     @PostMapping(value = "/addProfile/{userId}")
-    public ResponseEntity<ProfileDTO> addProfile(@PathVariable Long userId,
+    public ResponseEntity<ProfileDTO> addProfile(@PathVariable Long userId, @RequestHeader("Authorization") String token,
 
                                                  @RequestBody ProfileDTO profileDTO) throws IOException {
-
+        // validate token
+        String extractedEmail=jwtUtil.extractEmail(token.replace("Bearer ", ""));
 
         // Fetch the user by userId
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
-        // Convert DTO to Profile entity
-//        ObjectMapper mapper = new ObjectMapper();
-//        ProfileDTO pdto = mapper.readValue(profileDTOString, ProfileDTO.class);
+        if(!user.getEmail().equals(extractedEmail)) {
+            throw new RuntimeException("Unauthorized access: Token doesn't match");
+        }
+        if(!profileDTO.getEmail().equals(extractedEmail)) {
+            throw new RuntimeException("Unauthorized access: Email doesn't match");
+        }
+
         Profile profile = profileDTO.toEntity();
 
 //        String imageUrl=cloudinaryService.uploadImage(file);
@@ -74,14 +81,23 @@ public class ProfileController {
     }
 
     @PutMapping("/updateProfile/{userId}")
-    public ResponseEntity<ProfileDTO> updateProfile(@PathVariable Long userId,
+    public ResponseEntity<ProfileDTO> updateProfile(@PathVariable Long userId, @RequestHeader("Authorization") String token,
                                                     @RequestBody ProfileDTO profileDTO){
-      User user=userRepository.findById(userId).orElseThrow(()-> new GeneralExceptions.UserNotFoundException("User not found with id:" +userId));
 
+        // validate token
+        String extractedEmail=jwtUtil.extractEmail(token.replace("Bearer ", ""));
 
+        User user=userRepository.findById(userId).orElseThrow(()-> new GeneralExceptions.UserNotFoundException("User not found with id:" +userId));
+
+        if (!user.getEmail().equals(extractedEmail)) {
+            throw new RuntimeException("Unauthorized access: Token does not match the user");
+        }
         Profile existingProfile = profileService.getProfileByUserId(userId);
         if (existingProfile == null) {
             throw new GeneralExceptions.UserNotFoundException("Profile not found with user id: " + userId);
+        }
+        if(!profileDTO.getEmail().equals(extractedEmail)) {
+            throw new RuntimeException("Unauthorized access: Email doesn't match");
         }
 
         existingProfile.setJobTitle(profileDTO.getJobTitle());
