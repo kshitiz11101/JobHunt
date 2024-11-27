@@ -12,7 +12,7 @@ export const apiRequest=async({url,data,method,jwtToken,params})=>{
             data:data,
             headers:{
                 "Content-type":"application/json",
-                Authorization:token?`Bearer ${jwtToken}`:"",
+                Authorization:token?`Bearer ${token}`:undefined,
             },
             params:params || null
         })

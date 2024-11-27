@@ -11,9 +11,8 @@ const NavLinks = ({role}) => {
   ]
   const employerLinks = [
     { name: 'Post Jobs', url: "/post-jobs" },
-    
     { name: 'About', url: "/about" },
-    {name:'Posted Jobs', url:`/posted-jobs/${user.id}`}
+    {name:'Posted Jobs', url:"/posted-jobs"}
   ]
     const navlinks=[
         {name:'Find Jobs',url:"/find-jobs"},

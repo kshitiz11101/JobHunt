@@ -16,14 +16,17 @@ const PostedJobs = () => {
     const [isBoxOpen, setIsBoxOpen]=useState(false);
     const [selectedJob,setSelectedJob]=useState(null);
     const [isEdit,setIsEdit]=useState(false);
+    const token=useSelector((state)=>state.jwtToken);
     const navigate=useNavigate();
     const fetchPostedJobs=async()=>{
         try {
             const res=await apiRequest({
-                url:`/jobs/getJobsByUser/${user.id}`,
+                url:'/jobs/postedJobs',
                 method:"GET",
+                token,
             })
-           
+              console.log("Jobs posted:",res);
+              
             setPostedJobs(res);
         } catch (error) {
             console.log(`Error in fetching the jobs posted by ${user.name}`);

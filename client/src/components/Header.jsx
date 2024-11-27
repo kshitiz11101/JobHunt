@@ -16,7 +16,7 @@ const Header = () => {
     navigate('/login');
 
   }
-  console.log(user);
+  // console.log(user);
   
   return (
     <header className="bg-mine-shaft-950 text-white">

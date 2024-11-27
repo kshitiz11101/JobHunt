@@ -31,6 +31,7 @@ const PostJob = ({job}) => {
       const [isOtherSkillSelected, setIsOtherSkillSelected] = useState(false); // For tracking skill selection
       const [customSkill, setCustomSkill] = useState(''); // For manual skill input
       const [isBoxOpen, setIsBoxOpen]=useState(false);
+      const token=useSelector((state)=>state.jwtToken);
       const navigate=useNavigate();
       
       const handleChange = (e) => {
@@ -91,23 +92,25 @@ const PostJob = ({job}) => {
         try {
           if(job){
               const res=await apiRequest({
-                url:`/jobs/updateJob/${job.id}/${user.id}`,
+                url:`/jobs/updateJob/${job.id}`,
                 method:"PUT",
-                data:updatedJobDetails
+                data:updatedJobDetails,
+                token,
               });
               console.log("Job Updated Successfully",res);
               toast.success("Job Updated Successfully");
-              navigate(`/posted-jobs/${user.id}`);            
+              navigate('/posted-jobs');            
           }
           else{
             const res=await apiRequest({
-              url: `/jobs/addJob/${user.id}`,
+              url: `/jobs/addJob`,
             method: "POST",
             data: updatedJobDetails,
+            token,
             });
             console.log("Job Posted Successfully", res);
           toast.success("Job Posted Successfully");
-            navigate(`/posted-jobs/${user.id}`);
+            navigate(`/posted-jobs`);
           }
         } 
         catch(error){

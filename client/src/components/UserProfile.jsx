@@ -10,11 +10,11 @@ import { FaCalendarAlt, FaCommentAlt } from 'react-icons/fa'
 import { GiSkills } from 'react-icons/gi'
 import { MdDescription } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
-// import {ConfirmBox} from '../components/ConfirmBox'
 const UserProfile = () => {
     const userId= parseInt(useSelector((state)=>state.userDetail.id),10);
     const userName=useSelector((state)=>state.userDetail.name);
     const email=useSelector((state)=>state.userDetail.email);
+    const token=useSelector((state)=>state.jwtToken);
     const [isEditing,setIsEditing]=useState(false);
     const navigate=useNavigate();
     const [profileData,setProfileData]=useState({
@@ -43,6 +43,7 @@ const UserProfile = () => {
         const res = await apiRequest({
           url: `/profiles/${userId}`,
           method: "GET",
+          
         })
         if (res) {
           setProfileData(res);
@@ -100,6 +101,7 @@ const UserProfile = () => {
             url,
             method,
             data: profileData,
+           token,
           });
           toast.success(hasProfile ? "Profile Updated Successfully" : "Profile Added Successfully");
         setProfileData(res.data);
