@@ -36,7 +36,7 @@ public class JobController {
             throw new RuntimeException("Invalid token");
         }
         Job job=jobDTO.toEntity();
-
+        job.setPostedBy(user);
         Job createdJob=jobService.createJob(job);
 
         JobDTO createdJobDTO=createdJob.toDTO();
@@ -59,6 +59,7 @@ public class JobController {
         }
         jobDTO.setId(id);
         Job updatedJob=jobService.updateJob(jobDTO.toEntity());
+        updatedJob.setPostedBy(job.getPostedBy());
         JobDTO createdJobDTO=updatedJob.toDTO();
         return new ResponseEntity<>(createdJobDTO, HttpStatus.OK);
     }
@@ -70,6 +71,18 @@ public class JobController {
         }
         JobDTO createdJobDTO=job.toDTO();
         return new ResponseEntity<>(createdJobDTO, HttpStatus.OK);
+    }
+    @GetMapping("/postedJobs")
+    public ResponseEntity<List<JobDTO>> postedJobs(@RequestHeader("Authorization") String token){
+        String email=jwtUtil.extractEmail(token.replace("Bearer ",""));
+        User user=userService.getUserByEmail(email).toEntity();
+        List<Job> userJobs=jobService.getJobsByUser(user.getId());
+        List<JobDTO> jobDTOs = userJobs.stream()
+                .map(Job::toDTO)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(jobDTOs, HttpStatus.OK);
+
     }
     @GetMapping("/getAllJobs")
     public ResponseEntity<List<JobDTO>> getAllJobs() {

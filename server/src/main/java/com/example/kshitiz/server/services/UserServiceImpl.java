@@ -28,7 +28,7 @@ class UserServiceImpl implements UserService {
 
         User user=userDTO.toEntity();
         user.setPassword(bcryptPasswordEncoder.encode(userDTO.getPassword()));
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
         return user.toDTO();
     }
 

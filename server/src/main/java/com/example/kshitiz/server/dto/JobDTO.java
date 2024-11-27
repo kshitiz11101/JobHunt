@@ -25,7 +25,7 @@ public class JobDTO {
     private String description;
     private String responsibilities;
     private LocalDate postedOn;
-
+    private String postedBy;
 
 
 

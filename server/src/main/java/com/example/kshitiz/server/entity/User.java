@@ -5,6 +5,7 @@ import com.example.kshitiz.server.dto.UserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -33,7 +34,7 @@ public class User {
     @Size(min = 6)
     private String password;
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Account Type cannot be null or empty")
+    @NotNull(message = "Account Type cannot be null or empty")
     private AccountType accountType;
 //
     public UserDTO toDTO(){

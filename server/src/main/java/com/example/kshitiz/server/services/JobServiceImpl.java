@@ -1,6 +1,7 @@
 package com.example.kshitiz.server.services;
 
 import com.example.kshitiz.server.entity.Job;
+import com.example.kshitiz.server.entity.User;
 import com.example.kshitiz.server.repositories.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +66,11 @@ public class JobServiceImpl implements JobService {
                 .filter(job -> (experience == null || job.getExperience().equalsIgnoreCase(experience)))
                 .filter(job -> (jobType == null || job.getJobType().equalsIgnoreCase(jobType)))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Job> getJobsByUser(Long userId) {
+        return jobRepository.findByPostedById(userId);
     }
 
 

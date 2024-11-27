@@ -46,6 +46,10 @@ public class Job {
     private LocalDate postedOn;
     private String responsibilities;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User postedBy;
+
 
 
 
@@ -63,6 +67,7 @@ public class Job {
         jobDTO.setDescription(this.description);
         jobDTO.setPostedOn(this.postedOn);
         jobDTO.setResponsibilities(this.responsibilities);
+        jobDTO.setPostedBy(this.postedBy.getName());
         return jobDTO;
     }
 }
