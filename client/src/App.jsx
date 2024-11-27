@@ -27,7 +27,7 @@ function App() {
     <Route path="/login" element={<LoginPage/>}/>
     <Route path="/apply-jobs/:jobId" element={<ApplicationForm/>}/>
     <Route path="/signup" element={<SignUpPage/>} />
-    <Route path="/posted-jobs/:userId" element={<PostedJobsPage/>}/>
+    <Route path="/posted-jobs" element={<PostedJobsPage/>}/>
     <Route path="applicants/:jobId" element={<ApplicantsPage/>}/>
     </Routes>
     </BrowserRouter>

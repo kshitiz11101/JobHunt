@@ -28,6 +28,7 @@ const PostedJobs = () => {
               console.log("Jobs posted:",res);
               
             setPostedJobs(res);
+            
         } catch (error) {
             console.log(`Error in fetching the jobs posted by ${user.name}`);
         }
