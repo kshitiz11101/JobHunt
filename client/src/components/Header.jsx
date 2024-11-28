@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IoMdNotificationsOutline, IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
 import {TbAsset} from 'react-icons/tb';
 import NavLinks from './NavLinks';
 import { useNavigate } from 'react-router-dom';
@@ -53,9 +53,6 @@ const Header = () => {
                   <IoMdArrowDropdown className="h-5 w-5 text-gray-400" />
                 </button>
               </div>
-              {/* <button onClick={handleLogout} className="text-gray-300 hover:text-white border border-cyan-500 px-2 py-2 rounded-md">
-                  Logout
-                </button> */}
                 {dropdownOpen && (
                     <div className="absolute right-2 top-12 mt-2 w-48 bg-mine-shaft-600 rounded-md shadow-lg py-1 z-10">
                     <a href="/user-profile" className="block px-4 py-2 text-sm text-mine-shaft-100 hover:bg-cyan-/-aqua-600">User Profile</a>
@@ -71,11 +68,7 @@ const Header = () => {
             </>
             )
           }
-          <div className="relative">
-            <button className="text-gray-300 hover:text-white">
-              <IoMdNotificationsOutline className="h-8 w-8  bg-mine-shaft-900 rounded-full" />
-            </button>
-          </div>
+         
         </div>
       </div>
     </nav>

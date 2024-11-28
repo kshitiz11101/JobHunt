@@ -164,7 +164,7 @@ const UserProfile = () => {
     };
 
     useEffect(() => {
-        // Ensure fetchProfile is called only when userId is available and profileData isn't null
+       
         if (userId && profileData !== null) {
             fetchProfile();
         }

@@ -30,7 +30,6 @@ const PostJob = ({job}) => {
       const [isOtherSelected, setIsOtherSelected] = useState(false); // To track if "Other" option is selected
       const [isOtherSkillSelected, setIsOtherSkillSelected] = useState(false); // For tracking skill selection
       const [customSkill, setCustomSkill] = useState(''); // For manual skill input
-      const [isBoxOpen, setIsBoxOpen]=useState(false);
       const token=useSelector((state)=>state.jwtToken);
       const navigate=useNavigate();
       

@@ -61,7 +61,7 @@ const ApplicationForm = () => {
         toast.error("Error in application")
       }
       finally {
-        setIsBoxOpen(false); // Close the confirmation box after submission
+        setIsBoxOpen(false); 
     }
     };
     const openConfirmBox=(e)=>{

@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { apiRequest } from '../services';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import Header from './Header';
-import SearchJobs from './SearchJobs';
-import Footer from './Footer';
 import ConfirmBox from './ConfirmBox';
 import PostJob from './PostJob';
 import { useNavigate } from 'react-router-dom';
@@ -58,11 +55,6 @@ const PostedJobs = () => {
       setSelectedJob(job);
       setIsEdit(true);
     }
-    const handleFormClose=()=>{
-      setIsEdit(false);
-      fetchPostedJobs();
-    }
-
     const openDeleteBox=(jobId)=>{
       setSelectedJobId(jobId);
       setIsBoxOpen(true);
@@ -75,10 +67,6 @@ const PostedJobs = () => {
     }
   return (
     <>
-     <Header />
-      <SearchJobs />
-
-      {/* Display job cards if not in edit mode */}
       {!isEdit ? (
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 bg-mine-shaft-950">
           {postedJobs.map((job, index) => (
@@ -94,7 +82,7 @@ const PostedJobs = () => {
                 <div className="flex gap-2">
                   <FaEdit
                     className="text-cyan-/-aqua-500 text-xl hover:text-cyan-/-aqua-700 cursor-pointer"
-                    onClick={() => handleEditJob(job)} // Open form for editing
+                    onClick={() => handleEditJob(job)} 
                   />
                   <FaTrash
                     className="text-cyan-/-aqua-500 text-xl hover:text-cyan-/-aqua-700 cursor-pointer"
@@ -124,7 +112,7 @@ const PostedJobs = () => {
           ))}
         </div>
       ) : (
-            <PostJob job={selectedJob}/> // Pass selected job for editing
+            <PostJob job={selectedJob}/> 
       )}
 
       <ConfirmBox
@@ -135,7 +123,7 @@ const PostedJobs = () => {
         confirmText="Delete"
         cancelText="Cancel"
       />
-      <Footer />
+     
     </>    
 )
 }

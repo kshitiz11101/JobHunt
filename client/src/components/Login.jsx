@@ -74,13 +74,7 @@ const Login = () => {
 
     <form onSubmit={handleLogin}>
     
-      {/* <div className="mb-4"> */}
-        {/* <label className="block text-gray-300 mb-1">Select Role <span className="text-red-500">*</span></label> */}
-        {/* <div className="flex justify-center sm:justify-start">
-          */}
-        {/* </div> */}
-       
-      {/* </div> */}
+     
       <div className="mb-4">
         <label htmlFor="email" className="block text-gray-300 mb-1">
           Email <span className="text-red-500">*</span>

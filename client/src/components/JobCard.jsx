@@ -68,7 +68,7 @@ const JobCard = () => {
 
   const handleJobClick = (job) => {
     setSelectedJobId(job.id);
-    dispatch(setJobDetails(job)); // Dispatch the action to set current job
+    dispatch(setJobDetails(job)); 
   };
   
 

@@ -5,13 +5,12 @@ import Footer from '../components/Footer';
 const FindJobs = () => {
   return (
     <>
-    <div className='min-h-screen bg-mine-shaft-950 w-auto h-auto'>
-    <Header/>
-    <JobCard/>
-    <br />
-    <br />
-    
-    <Footer/>
+    <div className="min-h-screen bg-mine-shaft-950 w-auto h-auto flex flex-col">
+      <Header />
+      <div className="flex-grow">
+        <JobCard />
+      </div>
+      <Footer />
     </div>
     </>
     )
