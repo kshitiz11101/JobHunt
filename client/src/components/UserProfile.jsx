@@ -37,26 +37,7 @@ const UserProfile = () => {
     });
     const [hasProfile,setHasProfile]=useState(false);
     
-    const fetchProfile = async () => {
-      if(!userId) return;
-      try {
-        const res = await apiRequest({
-          url: `/profiles/${userId}`,
-          method: "GET",
-          
-        })
-        if (res) {
-          setProfileData(res);
-          setHasProfile(true);
-        }
-      } catch (error) {
-        console.log("Error fetching profile");
-        setHasProfile(false);
-      }
-    };
-    useEffect(() => {
-      fetchProfile();
-    }, [userId]);
+   
     
     const handleInputChange=(e)=>{
       const {name,value}=e.target;
@@ -115,7 +96,7 @@ const UserProfile = () => {
             method: "GET",
           });
           
-          setProfileData(updatedProfile.data);
+          setProfileData(updatedProfile);
           console.log(updatedProfile);
           await fetchProfile();
         } catch (error) {
@@ -123,6 +104,26 @@ const UserProfile = () => {
           console.log(error);
         }
       }
+      const fetchProfile = async () => {
+        if(!userId) return;
+        try {
+          const res = await apiRequest({
+            url: `/profiles/${userId}`,
+            method: "GET",
+            
+          })
+          if (res) {
+            setProfileData(res);
+            setHasProfile(true);
+          }
+        } catch (error) {
+          console.log("Error fetching profile");
+          setHasProfile(false);
+        }
+      };
+      useEffect(() => {
+        fetchProfile();
+      }, [userId]);
   return (
    <>
     <ToastContainer/>

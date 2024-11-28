@@ -8,7 +8,7 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    accountType: ''
+    
   }); 
   const dispatch=useDispatch();
   const navigate=useNavigate();
@@ -25,10 +25,7 @@ const Login = () => {
       toast.error("Email is Required!");
       return;
     }
-    if(!formData.accountType){
-      toast.error("Please select a role");
-      return;
-    }
+    
     if(!formData.password){
       toast.error("Password is Required");
       return;
@@ -41,7 +38,7 @@ const Login = () => {
         method:"POST",
         data:formData,
       })
-      if(res && res.jwtToken){
+      if(res && res.jwtToken && res.id){
         localStorage.setItem("jwtToken",res.jwtToken);
         
         dispatch(login({
@@ -52,8 +49,8 @@ const Login = () => {
           jwtToken:res.jwtToken
           
         }));
-        toast.success("You have logged in successfully!")
         navigate('/user-profile');
+        toast.success("You have logged in successfully!")
       }
       else{
         toast.error("Login failed! Incorrect Email,Password or Role Chosen!");
@@ -77,34 +74,13 @@ const Login = () => {
 
     <form onSubmit={handleLogin}>
     
-      <div className="mb-4">
-        <label className="block text-gray-300 mb-1">Select Role <span className="text-red-500">*</span></label>
-        <div className="flex justify-center sm:justify-start">
-          <label className={`flex items-center text-gray-300 mr-2 p-3 rounded-md ${formData.accountType === 'APPLICANT' ? 'border-2 border-cyan-500' : 'border border-cyan-/-aqua-500'}`}>
-            <input
-              type="radio"
-              name="accountType"               
-              value="APPLICANT" 
-              onChange={handleChange}
-              className="mr-2 rounded-md border border-cyan-/-aqua-500"
-              checked={formData.accountType === 'APPLICANT'}
-            />
-            Applicant
-          </label>
-          <label className={`flex items-center text-gray-300 p-3 rounded-md ${formData.accountType === 'EMPLOYER' ? 'border-2 border-cyan-500' : 'border border-cyan-/-aqua-500'}`}>
-            <input
-              type="radio"
-              name="accountType" 
-              value="EMPLOYER" 
-              onChange={handleChange}
-              className="mr-2 border border-cyan-/-aqua-500"
-              checked={formData.accountType === 'EMPLOYER'}
-            />
-            Employer
-          </label>
-        </div>
+      {/* <div className="mb-4"> */}
+        {/* <label className="block text-gray-300 mb-1">Select Role <span className="text-red-500">*</span></label> */}
+        {/* <div className="flex justify-center sm:justify-start">
+          */}
+        {/* </div> */}
        
-      </div>
+      {/* </div> */}
       <div className="mb-4">
         <label htmlFor="email" className="block text-gray-300 mb-1">
           Email <span className="text-red-500">*</span>

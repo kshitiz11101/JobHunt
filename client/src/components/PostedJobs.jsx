@@ -40,8 +40,9 @@ const PostedJobs = () => {
     const handleDeleteJob=async()=>{
         try {
             const res=await apiRequest({
-                url:`/jobs/deleteJob/${selectedJobId}/${user.id}`,
+                url:`/jobs/deleteJob/${selectedJobId}`,
                 method:"DELETE",
+                token,
             });
             console.log(`Job deleted successfully: `,res);
             setIsBoxOpen(false);
