@@ -11,6 +11,7 @@ import ApplicationForm from "./components/ApplicationForm";
 import PostedJobsPage from "./pages/PostedJobsPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import ApplicantsPage from "./pages/ApplicantsPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
  
@@ -29,7 +30,8 @@ function App() {
     <Route path="/signup" element={<SignUpPage/>} />
     <Route path="/posted-jobs" element={<PostedJobsPage/>}/>
     <Route path="applicants/:jobId" element={<ApplicantsPage/>}/>
-    </Routes>
+    <Route path="/about" element={<AboutPage/>}/>
+    </Routes> 
     </BrowserRouter>
 
     </>
