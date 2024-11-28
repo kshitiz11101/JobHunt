@@ -57,11 +57,15 @@ public class JobController {
         if (job == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        jobDTO.setId(id);
-        Job updatedJob=jobService.updateJob(jobDTO.toEntity());
-        updatedJob.setPostedBy(job.getPostedBy());
-        JobDTO createdJobDTO=updatedJob.toDTO();
-        return new ResponseEntity<>(createdJobDTO, HttpStatus.OK);
+        Job updatedJobEntity = jobDTO.toEntity();
+        updatedJobEntity.setId(id); // Ensure the ID is set
+        updatedJobEntity.setPostedBy(job.getPostedBy()); // Retain the original 'postedBy'
+
+        // Perform the update
+        Job updatedJob = jobService.updateJob(updatedJobEntity);
+        JobDTO updatedJobDTO = updatedJob.toDTO();
+
+        return new ResponseEntity<>(updatedJobDTO, HttpStatus.OK);
     }
     @GetMapping("/getJob/{id}")
     public ResponseEntity<JobDTO> getJob(@PathVariable Long id) {
