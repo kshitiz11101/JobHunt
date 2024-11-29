@@ -10,7 +10,7 @@ import Footer from '../components/Footer'
 const Home = () => {
   return (
     <>
-    <div className="min-h-[100vh] bg-mine-shaft-950 font-['poppins']">
+    <div className="min-h-[100vh] bg-mine-shaft-950 font-['poppins']" id='home'>
     <Header/>
     <DreamJob/>
     <Companies/>

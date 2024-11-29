@@ -74,7 +74,7 @@ const ApplicationForm = () => {
   return (
     <>
     <ToastContainer/>
-    <Header/>
+    {/* <Header/> */}
     <div className="bg-mine-shaft-900 p-8 min-h-screen text-white">
             <h2 className="text-2xl font-bold mb-4">
                 Apply for {currentJob?.jobTitle} at {currentJob?.company}
@@ -217,7 +217,7 @@ const ApplicationForm = () => {
         cancelText='Cancel'
         onConfirm={handleSubmitApplication}
         />
-       <Footer/>
+       {/* <Footer/> */}
         </>
   )
 }

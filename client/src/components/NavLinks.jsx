@@ -15,10 +15,10 @@ const NavLinks = ({role}) => {
     {name:'Posted Jobs', url:"/posted-jobs"}
   ]
     const navlinks=[
-        {name:'Find Jobs',url:"/find-jobs"},
-        {name:'Find Talent',url:"/find-talent"},
-        {name:'Upload Jobs',url:"/Upload-jobs"},
+        {name:'Home',url:"#home"},
         {name:'About',url:"/about"},
+        {name:'Services',url:"#services"},
+        {name:'Contact us',url:"/contact"},
       
     ]
     let links = navlinks;

@@ -26,7 +26,7 @@ const JobCategory = () => {
   }, []);
 
   return (
-    <div className='mt-10 pb-5'>
+    <div className='mt-10 pb-5' id='services'>
         <div className='text-4xl text-center mb-3 font-semibold text-mine-shaft-100'>Browse
             <span className='text-cyan-/-aqua-500'> Job </span>Category
         </div>

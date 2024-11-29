@@ -85,7 +85,7 @@ const UserProfile = () => {
                 data: profileData,
                 token,
             });
-            toast.success(hasProfile ? "Profile Updated Successfully" : "Profile Added Successfully");
+            // toast.success(hasProfile ? "Profile Updated Successfully" : "Profile Added Successfully");
             setProfileData(res.data);
 
             console.log('Profile operation successful', res);
@@ -174,7 +174,7 @@ const UserProfile = () => {
         <>
             <ToastContainer />
             <Header />
-            <div className="min-h-screen bg-mine-shaft-800 text-white p-4 mx-auto grid grid-cols-2 md:grid-cols-1 gap-6">
+            <div className="min-h-screen  bg-mine-shaft-800 text-white p-8 mx-auto grid grid-cols-2 md:grid-cols-1 gap-6">
                 {profileData ? (
                     isEditing ? (
                         <form onSubmit={addOrUpdateProfile} >

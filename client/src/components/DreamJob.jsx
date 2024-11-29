@@ -48,7 +48,7 @@ const DreamJob = () => {
          
           <button
             onClick={handleSearch}
-            className="bg-cyan-500 p-4 flex items-center justify-center rounded-md hover:bg-cyan-/-aqua-600 w-1/5 h-16 m-4"
+            className="bg-cyan-500 p-4 flex items-center justify-center rounded-md hover:bg-cyan-/-aqua-600 w-1/6 h-10  mt-8"
           >
             <AiOutlineSearch className="text-white text-4xl" />
           </button>

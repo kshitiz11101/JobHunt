@@ -8,7 +8,7 @@ const SavedJobs = () => {
   return (
     <>
     <Header/>
-    <div className="min-h-screen p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 bg-mine-shaft-950 ">
+    <div className="min-h-screen p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 bg-mine-shaft-950 ">
       {savedJobs.length === 0 ? (
         <p className="text-mine-shaft-100 text-2xl ">No saved jobs yet!</p>
       ) : (
