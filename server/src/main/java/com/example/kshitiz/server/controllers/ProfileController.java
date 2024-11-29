@@ -63,10 +63,10 @@ public class ProfileController {
                 experience.setProfile(profile);
             }
         }
-        // Save the profile
+
         Profile createdProfile = profileService.createProfile(profile);
 
-        // Convert the created Profile entity back to DTO to return
+
         ProfileDTO createdProfileDTO = createdProfile.toDTO();
 
         return new ResponseEntity<>(createdProfileDTO, HttpStatus.CREATED);
@@ -108,7 +108,7 @@ public class ProfileController {
 
         existingProfile.getExperiences().clear();
 
-        // Handle the experience list
+
         if (profileDTO.getExperiences() != null) {
             for (Experience newExperience : profileDTO.toEntity().getExperiences()) {
                 newExperience.setProfile(existingProfile);

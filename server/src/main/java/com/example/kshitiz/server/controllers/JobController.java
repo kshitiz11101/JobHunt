@@ -61,7 +61,7 @@ public class JobController {
         updatedJobEntity.setId(id); // Ensure the ID is set
         updatedJobEntity.setPostedBy(job.getPostedBy()); // Retain the original 'postedBy'
 
-        // Perform the update
+
         Job updatedJob = jobService.updateJob(updatedJobEntity);
         JobDTO updatedJobDTO = updatedJob.toDTO();
 
